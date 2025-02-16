@@ -1,7 +1,7 @@
 {
   "name": "spicetify-share-on-misskey",
   "description": "Misskeyへ共有するボタンを追加するSpicetify拡張機能",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Midra <me@midra.me> (https://github.com/Midra429)",
   "license": "MIT",
   "scripts": {
