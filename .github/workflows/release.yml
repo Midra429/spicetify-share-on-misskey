@@ -1,4 +1,4 @@
-name: Release
+name: Build & Release
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
           - patch
 
 jobs:
-  submit:
+  build:
     runs-on: ubuntu-latest
 
     permissions:
