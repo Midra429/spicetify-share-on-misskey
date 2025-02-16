@@ -1,0 +1,13 @@
+{
+  "name": "Share on Misskey",
+  "description": "Misskeyへ共有するボタンを追加するSpicetify拡張機能",
+  "preview": "assets/thumbnail.png",
+  "main": "dist/share-on-misskey.js",
+  "readme": "README.md",
+  "authors": [
+    {
+      "name": "Midra",
+      "url": "https://github.com/Midra429"
+    }
+  ]
+}

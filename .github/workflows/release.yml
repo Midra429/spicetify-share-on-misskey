@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: 'v[major].[minor].[patch]'
+        required: true
+        type: choice
+        default: 'patch'
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: pnpmをインストール
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: Node.jsをインストール
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 依存関係をインストール
+        run: pnpm install
+
+      - name: Gitのユーザーを設定
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: バージョンを更新
+        run: |
+          pnpm version ${{ github.event.inputs.bump_type }}
+          echo VERSION="v$(cat ./package.json | jq -r '.version')" >> "${GITHUB_ENV}"
+
+      - name: 拡張機能をビルド
+        run: pnpm run build-local
+
+      - name: リポジトリへプッシュ
+        working-directory: ./
+        run: |
+          git push
+          git push --tags
+
+      - name: GitHubへリリース
+        working-directory: ./
+        run: |
+          gh release create "${VERSION}" \
+            ./dist/share-on-misskey.js \
+            -t "$(cat ./manifest.json | jq -r '.name') ${VERSION}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
