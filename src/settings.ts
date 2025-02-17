@@ -3,6 +3,8 @@ import { SettingsSection } from 'spcr-settings'
 import { SETTINGS_BUTTON_CLASSNAME } from './constants/classNames'
 import { isUrl } from './utils/isUrl'
 
+import { version, homepage } from '../package.json'
+
 export const NOTE_VISIBILITY = [
   ['public', 'パブリック'],
   ['home', 'ホーム'],
@@ -22,7 +24,10 @@ const DEFAULT_SETTINGS = {
 export let settings: SettingsSection
 
 export const initializeSettings = async () => {
-  settings = new SettingsSection('Share on Misskey', 'share-on-misskey')
+  settings = new SettingsSection(
+    `Share on Misskey v${version}`,
+    'share-on-misskey'
+  )
 
   // サーバーのホスト
   settings.addInput(
@@ -42,7 +47,7 @@ export const initializeSettings = async () => {
   settings.addButton(
     'openSettingsApiPage',
     '┗ 設定したサーバーの「設定 > API」を開く',
-    '「設定 > API」を開く',
+    '開く',
     () => {
       const host = settings.getFieldValue<string>('misskeyHost')
 
@@ -90,6 +95,17 @@ export const initializeSettings = async () => {
     'showControlPanelButton',
     'コントロールパネルに「#NowPlaying」を表示',
     DEFAULT_SETTINGS['showControlPanelButton']
+  )
+
+  // GitHubでリポジトリを開く
+  settings.addButton(
+    'openGitHubRepository',
+    'GitHubでリポジトリを開く',
+    '開く',
+    () => window.open(homepage),
+    {
+      className: SETTINGS_BUTTON_CLASSNAME,
+    }
   )
 
   await settings.pushSettings()

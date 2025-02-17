@@ -39,13 +39,13 @@ jobs:
       - name: 依存関係をインストール
         run: pnpm install
 
-      - name: 拡張機能をビルド
-        run: pnpm run build-local
-
       - name: バージョンを更新
         run: |
           pnpm version ${{ github.event.inputs.bump_type }} --no-commit-hooks --no-git-tag-version
           echo VERSION="v$(cat ./package.json | jq -r '.version')" >> "${GITHUB_ENV}"
+
+      - name: 拡張機能をビルド
+        run: pnpm run build-local
 
       - name: Gitのユーザーを設定
         run: |
