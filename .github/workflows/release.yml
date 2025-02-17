@@ -39,27 +39,29 @@ jobs:
       - name: 依存関係をインストール
         run: pnpm install
 
+      - name: 拡張機能をビルド
+        run: pnpm run build-local
+
+      - name: バージョンを更新
+        run: |
+          pnpm version ${{ github.event.inputs.bump_type }} --no-commit-hooks --no-git-tag-version
+          echo VERSION="v$(cat ./package.json | jq -r '.version')" >> "${GITHUB_ENV}"
+
       - name: Gitのユーザーを設定
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: バージョンを更新
-        run: |
-          pnpm version ${{ github.event.inputs.bump_type }}
-          echo VERSION="v$(cat ./package.json | jq -r '.version')" >> "${GITHUB_ENV}"
-
-      - name: 拡張機能をビルド
-        run: pnpm run build-local
-
       - name: リポジトリへプッシュ
-        working-directory: ./
         run: |
+          git add ./package.json
+          git add ./dist/share-on-misskey.js
+          git commit -m "${VERSION}"
+          git tag "${VERSION}"
           git push
           git push --tags
 
       - name: GitHubへリリース
-        working-directory: ./
         run: |
           gh release create "${VERSION}" \
             ./dist/share-on-misskey.js \
