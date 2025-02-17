@@ -12,6 +12,7 @@ export const NOTE_VISIBILITY = [
 const DEFAULT_SETTINGS = {
   misskeyHost: 'misskey.io',
   misskeyToken: '',
+  useMisskeyWeb: false,
   misskeyVisibility: 1,
   showContextMenuButton: true,
   showControlPanelButton: true,
@@ -29,13 +30,20 @@ export const initializeSettings = async () => {
     DEFAULT_SETTINGS['misskeyHost']
   )
 
+  // アクセストークン
+  settings.addInput(
+    'misskeyToken',
+    'アクセストークン',
+    DEFAULT_SETTINGS['misskeyToken']
+  )
+
   // 設定したサーバーの「設定 > API」を開く
   settings.addButton(
     'openSettingsApiPage',
-    '設定したサーバーの「設定 > API」を開く',
-    '開く',
+    '　設定したサーバーの「設定 > API」を開く',
+    '「設定 > API」を開く',
     () => {
-      const host = settings.getFieldValue<string>('misskey-host')
+      const host = settings.getFieldValue<string>('misskeyHost')
 
       if (!host) {
         Spicetify.showNotification('サーバーのホストを入力してください', true)
@@ -45,17 +53,17 @@ export const initializeSettings = async () => {
 
       window.open(
         isUrl(host)
-          ? new URL('/settings/api', host).href
+          ? new URL('/settings/api', host)
           : `https://${host}/settings/api`
       )
     }
   )
 
-  // アクセストークン
-  settings.addInput(
-    'misskeyToken',
-    'アクセストークン',
-    DEFAULT_SETTINGS['misskeyToken']
+  // Misskey Webで投稿する
+  settings.addToggle(
+    'useMisskeyWeb',
+    'Misskey Webで投稿する（アクセストークン不要）',
+    DEFAULT_SETTINGS['useMisskeyWeb']
   )
 
   // 公開範囲
@@ -73,10 +81,10 @@ export const initializeSettings = async () => {
     DEFAULT_SETTINGS['showContextMenuButton']
   )
 
-  // コントロールパネルに投稿ボタンを表示
+  // コントロールパネルに「#NowPlaying」を表示
   settings.addToggle(
     'showControlPanelButton',
-    'コントロールパネルに投稿ボタンを表示',
+    'コントロールパネルに「#NowPlaying」を表示',
     DEFAULT_SETTINGS['showControlPanelButton']
   )
 
