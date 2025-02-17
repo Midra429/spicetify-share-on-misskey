@@ -45,7 +45,7 @@ export const createPostText = async (
 
         break
 
-      // ポッドキャスト・番組
+      // ポッドキャスト（番組）
       case Spicetify.URI.Type.SHOW:
         const show = await spotifyApi.show(uri)
 
@@ -53,7 +53,7 @@ export const createPostText = async (
 
         break
 
-      // エピソード
+      // ポッドキャスト（エピソード）
       case Spicetify.URI.Type.EPISODE:
         const episode = await spotifyApi.episode(uri)
 
@@ -64,16 +64,16 @@ export const createPostText = async (
         break
 
       // プレイリスト
-      case Spicetify.URI.Type.PLAYLIST_V2:
-        uri.type = Spicetify.URI.Type.PLAYLIST
-
       case Spicetify.URI.Type.PLAYLIST:
+      case Spicetify.URI.Type.PLAYLIST_V2:
         const playlist = await spotifyApi.playlist(uri)
 
         text += playlist.name
 
         break
     }
+
+    if (!text) return
 
     // ハッシュタグ
     if (hashtag) {
@@ -82,7 +82,7 @@ export const createPostText = async (
 
     // SpotifyのURL
     text += '\n'
-    text += `https://open.spotify.com/${uri.type}/${uri.id}`
+    text += uri.toURL()
   } catch (err: any) {
     Spicetify.showNotification(`[Share on Misskey] ${err.message}`, true)
   }
