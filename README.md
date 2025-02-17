@@ -1,6 +1,8 @@
 # Share on Misskey
 Misskeyへ共有するボタンを追加するSpicetify拡張機能です。
 
+![「Misskeyでシェア」と「#NowPlaying」](./assets/preview.png "←コンテキストメニュー | コントロールパネル→")
+
 ## 機能
 - コンテキストメニューに「Misskeyでシェア」を追加
 - コントロールパネルに「#NowPlaying」を追加
