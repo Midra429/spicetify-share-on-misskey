@@ -4,8 +4,29 @@ Misskeyへ共有するボタンを追加するSpicetify拡張機能です。
 ![「Misskeyでシェア」と「#NowPlaying」](./assets/preview.png "←コンテキストメニュー | コントロールパネル→")
 
 ## 機能
-- コンテキストメニューに「Misskeyでシェア」を追加
-- コントロールパネルに「#NowPlaying」を追加
+- コンテキストメニューに「**Misskeyでシェア**」を追加\
+[共有されるテキスト](#共有されるテキスト)
+- コントロールパネルに「**#NowPlaying**」を追加\
+[共有されるテキスト](#共有されるテキスト) + `#NowPlaying`
+
+### 共有されるテキスト
+#### 曲
+```
+<曲名> - <アーティスト名>
+https://open.spotify.com/track/<id>
+```
+
+#### ポッドキャスト（エピソード）
+```
+<エピソード名> - <番組名>
+https://open.spotify.com/episode/<id>
+```
+
+#### アルバム / アーティスト / ポッドキャスト（番組） / プレイリスト
+```
+<タイトル>
+https://open.spotify.com/<album|artist|show|playlist>/<ID>
+```
 
 ## インストール
 ### Marketplace
