@@ -3,8 +3,8 @@ import { settings } from './settings'
 import { shareOnMisskey } from './shareOnMisskey'
 
 export const initializeContextMenu = () => {
-  // Misskeyでシェア
-  if (settings.getFieldValue('showContextMenuButton')) {
+  if (settings.getFieldValue<boolean>('showContextMenuButton')) {
+    // Misskeyでシェア
     new Spicetify.ContextMenu.Item(
       'Misskeyでシェア',
       async (uris) => {
