@@ -1,5 +1,6 @@
 import { SettingsSection } from 'spcr-settings'
 
+import { SETTINGS_BUTTON_CLASSNAME } from './constants/classNames'
 import { isUrl } from './utils/isUrl'
 
 export const NOTE_VISIBILITY = [
@@ -56,6 +57,9 @@ export const initializeSettings = async () => {
           ? new URL('/settings/api', host)
           : `https://${host}/settings/api`
       )
+    },
+    {
+      className: SETTINGS_BUTTON_CLASSNAME,
     }
   )
 
