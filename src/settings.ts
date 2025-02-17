@@ -41,7 +41,7 @@ export const initializeSettings = async () => {
   // 設定したサーバーの「設定 > API」を開く
   settings.addButton(
     'openSettingsApiPage',
-    '　設定したサーバーの「設定 > API」を開く',
+    '┗ 設定したサーバーの「設定 > API」を開く',
     '「設定 > API」を開く',
     () => {
       const host = settings.getFieldValue<string>('misskeyHost')
