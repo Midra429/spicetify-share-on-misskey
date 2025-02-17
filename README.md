@@ -25,7 +25,7 @@ https://open.spotify.com/episode/<id>
 #### アルバム / アーティスト / ポッドキャスト（番組） / プレイリスト
 ```
 <タイトル>
-https://open.spotify.com/<album|artist|show|playlist>/<ID>
+https://open.spotify.com/<album|artist|show|playlist>/<id>
 ```
 
 ## インストール
