@@ -1,9 +1,14 @@
-import { SettingsSection } from 'spcr-settings'
+import type { SettingsItems } from '@/types/settings'
 
-import { SETTINGS_BUTTON_CLASSNAME } from './constants/classNames'
-import { isUrl } from './utils/isUrl'
-
-import { version, homepage } from '../package.json'
+import {
+  EXTENSION_ID,
+  EXTENSION_NAME,
+  EXTENSION_VERSION,
+  EXTENSION_HOMEPAGE,
+} from '@/constants/extension'
+import { SETTINGS_BUTTON_CLASSNAME } from '@/constants/classNames'
+import { isUrl } from '@/utils/isUrl'
+import { SettingsSection } from '@/utils/spcr-settings'
 
 export const NOTE_VISIBILITY = [
   ['public', 'パブリック'],
@@ -12,21 +17,21 @@ export const NOTE_VISIBILITY = [
 ] as const
 
 /** 設定の初期値 */
-const DEFAULT_SETTINGS = {
+const DEFAULT_SETTINGS: SettingsItems = {
   misskeyHost: 'misskey.io',
   misskeyToken: '',
   useMisskeyWeb: false,
-  misskeyVisibility: 1,
+  misskeyVisibility: 'ホーム',
   showContextMenuButton: true,
   showControlPanelButton: true,
-} as const
+}
 
 export let settings: SettingsSection
 
 export const initializeSettings = async () => {
   settings = new SettingsSection(
-    `Share on Misskey v${version}`,
-    'share-on-misskey'
+    `${EXTENSION_NAME} v${EXTENSION_VERSION}`,
+    EXTENSION_ID
   )
 
   // サーバーのホスト
@@ -49,7 +54,7 @@ export const initializeSettings = async () => {
     '┗ 設定したサーバーの「設定 > API」を開く',
     '開く',
     () => {
-      const host = settings.getFieldValue<string>('misskeyHost')
+      const host = settings.getFieldValue('misskeyHost')
 
       if (!host) {
         Spicetify.showNotification('サーバーのホストを入力してください', true)
@@ -80,7 +85,9 @@ export const initializeSettings = async () => {
     'misskeyVisibility',
     '公開範囲',
     NOTE_VISIBILITY.map(([_, label]) => label),
-    DEFAULT_SETTINGS['misskeyVisibility']
+    NOTE_VISIBILITY.findIndex(
+      ([_, label]) => label === DEFAULT_SETTINGS['misskeyVisibility']
+    )
   )
 
   // コンテキストメニューに「Misskeyでシェア」を表示
@@ -102,7 +109,7 @@ export const initializeSettings = async () => {
     'openGitHubRepository',
     'GitHubでリポジトリを開く',
     '開く',
-    () => window.open(homepage),
+    () => window.open(EXTENSION_HOMEPAGE),
     {
       className: SETTINGS_BUTTON_CLASSNAME,
     }

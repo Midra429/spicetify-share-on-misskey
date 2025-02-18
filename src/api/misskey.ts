@@ -1,7 +1,8 @@
 import type * as Misskey from 'misskey-js'
 
-import { isUrl } from '../utils/isUrl'
-import { settings } from '../settings'
+import { EXTENSION_NAME } from '@/constants/extension'
+import { isUrl } from '@/utils/isUrl'
+import { settings } from '@/settings'
 
 class MisskeyApiClient {
   readonly host: string
@@ -29,7 +30,10 @@ class MisskeyApiClient {
           'Authorization': `Bearer ${this.token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          ...body,
+          i: this.token,
+        }),
       })
       const json = await res.json()
 
@@ -39,7 +43,7 @@ class MisskeyApiClient {
 
       return json
     } catch (err: any) {
-      Spicetify.showNotification(`[Share on Misskey] ${err.message}`, true)
+      Spicetify.showNotification(`[${EXTENSION_NAME}] ${err.message}`, true)
     }
   }
 }
@@ -47,8 +51,8 @@ class MisskeyApiClient {
 let _misskeyApiClient: MisskeyApiClient | null = null
 
 export const getMisskeyApiClient = (): MisskeyApiClient | null => {
-  const host = settings.getFieldValue<string>('misskeyHost')
-  const token = settings.getFieldValue<string>('misskeyToken')
+  const host = settings.getFieldValue('misskeyHost')
+  const token = settings.getFieldValue('misskeyToken')
 
   if (host && token) {
     if (

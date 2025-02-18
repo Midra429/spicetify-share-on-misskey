@@ -8,45 +8,45 @@ import type {
 } from '@spotify/web-api-ts-sdk'
 
 export const spotifyApi = {
-  // 曲
-  track: async (uri: Spicetify.URI): Promise<Track> => {
+  v1_get(
+    path: string,
+    body?: Spicetify.CosmosAsync.Body,
+    headers?: Spicetify.CosmosAsync.Headers
+  ) {
     return Spicetify.CosmosAsync.get(
-      `https://api.spotify.com/v1/tracks/${uri.id}`
+      `https://api.spotify.com/v1${path}`,
+      body,
+      headers
     )
+  },
+
+  // 曲
+  async track(uri: Spicetify.URI): Promise<Track> {
+    return this.v1_get(`/tracks/${uri.id}`)
   },
 
   // アルバム
-  album: async (uri: Spicetify.URI): Promise<Album> => {
-    return Spicetify.CosmosAsync.get(
-      `https://api.spotify.com/v1/albums/${uri.id}`
-    )
+  async album(uri: Spicetify.URI): Promise<Album> {
+    return this.v1_get(`/albums/${uri.id}`)
   },
 
   // アーティスト
-  artist: async (uri: Spicetify.URI): Promise<Artist> => {
-    return Spicetify.CosmosAsync.get(
-      `https://api.spotify.com/v1/artists/${uri.id}`
-    )
+  async artist(uri: Spicetify.URI): Promise<Artist> {
+    return this.v1_get(`/artists/${uri.id}`)
   },
 
   // ポッドキャスト・番組
-  show: async (uri: Spicetify.URI): Promise<Show> => {
-    return Spicetify.CosmosAsync.get(
-      `https://api.spotify.com/v1/shows/${uri.id}`
-    )
+  async show(uri: Spicetify.URI): Promise<Show> {
+    return this.v1_get(`/shows/${uri.id}`)
   },
 
   // エピソード
-  episode: async (uri: Spicetify.URI): Promise<Episode> => {
-    return Spicetify.CosmosAsync.get(
-      `https://api.spotify.com/v1/episodes/${uri.id}`
-    )
+  async episode(uri: Spicetify.URI): Promise<Episode> {
+    return this.v1_get(`/episodes/${uri.id}`)
   },
 
   // プレイリスト
-  playlist: async (uri: Spicetify.URI): Promise<Playlist> => {
-    return Spicetify.CosmosAsync.get(
-      `https://api.spotify.com/v1/playlists/${uri.id}`
-    )
+  async playlist(uri: Spicetify.URI): Promise<Playlist> {
+    return this.v1_get(`/playlists/${uri.id}`)
   },
 }

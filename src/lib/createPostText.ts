@@ -1,4 +1,6 @@
-import { spotifyApi } from './api/spotify'
+import { spotifyApi } from '@/api/spotify'
+
+import { EXTENSION_NAME } from '@/constants/extension'
 
 export type CreatePostTextOptions = {
   hashtag?: string
@@ -12,9 +14,9 @@ export const createPostText = async (
 
   const { hashtag } = options
 
-  let text = ''
-
   try {
+    let text = ''
+
     switch (uri.type) {
       // 曲
       case Spicetify.URI.Type.TRACK:
@@ -83,9 +85,9 @@ export const createPostText = async (
     // SpotifyのURL
     text += '\n'
     text += uri.toURL()
-  } catch (err: any) {
-    Spicetify.showNotification(`[Share on Misskey] ${err.message}`, true)
-  }
 
-  return text.trim()
+    return text.trim()
+  } catch (err: any) {
+    Spicetify.showNotification(`[${EXTENSION_NAME}] ${err.message}`, true)
+  }
 }

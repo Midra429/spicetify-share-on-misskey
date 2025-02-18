@@ -1,9 +1,10 @@
-import type { CreatePostTextOptions } from './createPostText'
+import type { CreatePostTextOptions } from '@/lib/createPostText'
 
-import { isUrl } from './utils/isUrl'
-import { getMisskeyApiClient } from './api/misskey'
-import { NOTE_VISIBILITY, settings } from './settings'
-import { createPostText } from './createPostText'
+import { EXTENSION_NAME } from '@/constants/extension'
+import { NOTE_VISIBILITY, settings } from '@/settings'
+import { isUrl } from '@/utils/isUrl'
+import { getMisskeyApiClient } from '@/api/misskey'
+import { createPostText } from '@/lib/createPostText'
 
 export const shareOnMisskey = async (
   uri?: Spicetify.URI | null,
@@ -14,7 +15,7 @@ export const shareOnMisskey = async (
 
   if (!text) {
     Spicetify.showNotification(
-      '[Share on Misskey] この形式には非対応です',
+      `[${EXTENSION_NAME}] この形式には非対応です`,
       true
     )
 
@@ -22,18 +23,18 @@ export const shareOnMisskey = async (
   }
 
   // 公開範囲
-  const visibilityLabel = settings.getFieldValue<string>('misskeyVisibility')
+  const visibilityLabel = settings.getFieldValue('misskeyVisibility')
   const visibility = NOTE_VISIBILITY.find(
     ([_, label]) => label === visibilityLabel
   )?.[0]
 
   // Misskey Webで投稿
-  if (settings.getFieldValue<boolean>('useMisskeyWeb')) {
-    const host = settings.getFieldValue<string>('misskeyHost')
+  if (settings.getFieldValue('useMisskeyWeb')) {
+    const host = settings.getFieldValue('misskeyHost')
 
     if (!host) {
       Spicetify.showNotification(
-        '[Share on Misskey] サーバーのホストを設定してください',
+        `[${EXTENSION_NAME}] サーバーのホストを設定してください`,
         true
       )
 
@@ -45,7 +46,10 @@ export const shareOnMisskey = async (
       : new URL(`https://${host}/share`)
 
     url.searchParams.set('text', text)
-    url.searchParams.set('visibility', visibility ?? 'public')
+
+    if (visibility) {
+      url.searchParams.set('visibility', visibility)
+    }
 
     window.open(url)
   }
@@ -55,7 +59,7 @@ export const shareOnMisskey = async (
 
     if (!apiClient) {
       Spicetify.showNotification(
-        '[Share on Misskey] サーバーのホストとアクセストークンを設定してください',
+        `[${EXTENSION_NAME}] サーバーのホストとアクセストークンを設定してください`,
         true
       )
 
@@ -69,7 +73,7 @@ export const shareOnMisskey = async (
     })
 
     if (createdNote) {
-      Spicetify.showNotification('[Share on Misskey] 投稿しました')
+      Spicetify.showNotification(`[${EXTENSION_NAME}] 投稿しました`)
     }
   }
 }

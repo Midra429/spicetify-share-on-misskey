@@ -1,9 +1,9 @@
-import { MISSKEY_ICON_SVG } from './constants/misskeyIcon'
-import { settings } from './settings'
-import { shareOnMisskey } from './shareOnMisskey'
+import { MISSKEY_ICON_SVG } from '@/constants/misskeyIcon'
+import { settings } from '@/settings'
+import { shareOnMisskey } from '@/lib/shareOnMisskey'
 
 export const initializeControlPanel = () => {
-  if (settings.getFieldValue<boolean>('showControlPanelButton')) {
+  if (settings.getFieldValue('showControlPanelButton')) {
     // #NowPlaying
     new Spicetify.Playbar.Button('#NowPlaying', MISSKEY_ICON_SVG, async () => {
       const uri = Spicetify.URI.from(Spicetify.Player.data?.item.uri)

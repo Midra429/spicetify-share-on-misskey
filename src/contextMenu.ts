@@ -1,16 +1,17 @@
-import { MISSKEY_ICON_SVG } from './constants/misskeyIcon'
-import { settings } from './settings'
-import { shareOnMisskey } from './shareOnMisskey'
+import { EXTENSION_NAME } from '@/constants/extension'
+import { MISSKEY_ICON_SVG } from '@/constants/misskeyIcon'
+import { settings } from '@/settings'
+import { shareOnMisskey } from '@/lib/shareOnMisskey'
 
 export const initializeContextMenu = () => {
-  if (settings.getFieldValue<boolean>('showContextMenuButton')) {
+  if (settings.getFieldValue('showContextMenuButton')) {
     // Misskeyでシェア
     new Spicetify.ContextMenu.Item(
       'Misskeyでシェア',
       async (uris) => {
         if (2 <= uris.length) {
           Spicetify.showNotification(
-            '[Share on Misskey] 複数の項目が選択されています',
+            `[${EXTENSION_NAME}] 複数の項目が選択されています`,
             true
           )
 

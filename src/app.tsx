@@ -1,6 +1,6 @@
-import { initializeSettings } from './settings'
-import { initializeContextMenu } from './contextMenu'
-import { initializeControlPanel } from './controlPanel'
+import { initializeSettings } from '@/settings'
+import { initializeContextMenu } from '@/contextMenu'
+import { initializeControlPanel } from '@/controlPanel'
 
 export default async () => {
   while (!Spicetify) {
