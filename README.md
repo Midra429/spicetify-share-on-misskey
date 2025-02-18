@@ -31,20 +31,33 @@ https://open.spotify.com/<album|artist|show|playlist>/<id>
 ## インストール
 ### Marketplace
 1. **Marketplace > 拡張機能**で「**Share on Misskey**」を検索
-2. インストールボタンをクリック
+2. インストールボタンをクリックして、リロード
 3. [初期設定](#初期設定)をする
 
 ### 手動
 1. [最新のリリース](https://github.com/Midra429/spicetify-share-on-misskey/releases/latest)から`share-on-misskey.js`をダウンロード
-2. ダウンロードしたファイルを下のディレクトリ内に置く\
-Windows: `%appdata%\spicetify\Extensions\`\
-Linux, macOS:	`~/.config/spicetify/Extensions`
-3. Spotifyを閉じた状態で、コマンドを実行してインストール
+2. コマンドを実行して、Spicetifyのコンフィグフォルダを開く
+```sh
+spicetify config-dir
+```
+3. `share-on-misskey.js`を`Extensions`内に置く
+4. Spotifyを完全に閉じて、コマンドを実行
 ```sh
 spicetify config extensions share-on-misskey.js
 spicetify apply
 ```
-4. Spotifyを開き、[初期設定](#初期設定)をする
+5. [初期設定](#初期設定)をする
+
+## アップデート
+### Marketplace
+自動でアップデートされます。
+
+### 手動
+1. [インストール（手動）](#手動)の1〜3
+3. Spotifyを完全に閉じて、コマンドを実行
+```sh
+spicetify apply
+```
 
 ## アンインストール
 ### Marketplace
@@ -52,12 +65,13 @@ spicetify apply
 2. [Misskeyのアクセストークンを削除](#Misskeyのアクセストークンを削除する)
 
 ### 手動
-1. Spotifyを閉じた状態で、コマンドを実行してアンインストール
+1. [インストール（手動）](#手動)の3で置いたファイルを削除
+2. Spotifyを完全に閉じて、コマンドを実行
 ```sh
 spicetify config extensions share-on-misskey.js-
 spicetify apply
 ```
-2. [Misskeyのアクセストークンを削除](#Misskeyのアクセストークンを削除する)
+3. [Misskeyのアクセストークンを削除](#Misskeyのアクセストークンを削除する)
 
 ## 初期設定
 Spotifyの**設定 > Share on Misskey**から設定できます。
