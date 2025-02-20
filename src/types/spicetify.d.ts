@@ -814,11 +814,11 @@ declare namespace Spicetify {
       /**
        * Add an item to sub items list
        */
-      addItem(item: Item)
+      addItem(item: Item): void
       /**
        * Remove an item from sub items list
        */
-      removeItem(item: Item)
+      removeItem(item: Item): void
       /**
        * SubMenu is only available in Profile menu when method "register" is called.
        */
@@ -1790,13 +1790,13 @@ declare namespace Spicetify {
        * Values from the colorSet will be pasted into the CSS.
        */
       'UNSAFE_colorSet'?: ColorSetBody
-      'onClick'?: (event: MouseEvent<HTMLButtonElement>) => void
-      'onMouseEnter'?: (event: MouseEvent<HTMLButtonElement>) => void
-      'onMouseLeave'?: (event: MouseEvent<HTMLButtonElement>) => void
-      'onMouseDown'?: (event: MouseEvent<HTMLButtonElement>) => void
-      'onMouseUp'?: (event: MouseEvent<HTMLButtonElement>) => void
-      'onFocus'?: (event: FocusEvent<HTMLButtonElement>) => void
-      'onBlur'?: (event: FocusEvent<HTMLButtonElement>) => void
+      'onClick'?: (event: MouseEvent) => void
+      'onMouseEnter'?: (event: MouseEvent) => void
+      'onMouseLeave'?: (event: MouseEvent) => void
+      'onMouseDown'?: (event: MouseEvent) => void
+      'onMouseUp'?: (event: MouseEvent) => void
+      'onFocus'?: (event: FocusEvent) => void
+      'onBlur'?: (event: FocusEvent) => void
     }
     /**
      * Generic context menu provider
