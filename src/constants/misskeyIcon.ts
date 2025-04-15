@@ -1,6 +1,11 @@
 import { toSingleLine } from '@/utils/toSingleLine'
 
-const SVG_CLASS = 'e-9640-icon Svg-img-icon-small'
+const SVG_CLASS = [
+  'e-9640-icon',
+  'e-9800-icon e-9800-baseline',
+  'Svg-img-icon-small',
+].join(' ')
+
 const SVG_STYLE = toSingleLine(`
   --encore-icon-height: var(--encore-graphic-size-decorative-smaller);
   --encore-icon-width: var(--encore-graphic-size-decorative-smaller);
