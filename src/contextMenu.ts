@@ -25,17 +25,5 @@ export const initializeContextMenu = () => {
       undefined,
       MISSKEY_ICON_SVG as any
     ).register()
-
-    // Spotifyのアプデで適用されなくなったスタイルの修正用
-    const style = document.createElement('style')
-    style.textContent = `
-      .Wrapper-sm-only, .Wrapper-small-only {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        position: absolute;
-      }
-    `
-    document.body.appendChild(style)
   }
 }

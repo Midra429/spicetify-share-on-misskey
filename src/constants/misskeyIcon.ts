@@ -1,8 +1,9 @@
 import { toSingleLine } from '@/utils/toSingleLine'
 
 const SVG_CLASS = [
-  'e-9640-icon',
+  'e-9640-icon e-9640-baseline',
   'e-9800-icon e-9800-baseline',
+  'e-9890-icon e-9890-baseline',
   'Svg-img-icon-small',
 ].join(' ')
 
